@@ -2,11 +2,12 @@ package com.ebolo.kricheditor;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.ebolo.krichtexteditor.RichEditor;
 import com.ebolo.krichtexteditor.fragments.KRichEditorFragment;
@@ -130,6 +131,14 @@ public class JavaActivity extends AppCompatActivity {
                 return true;
             case R.id.action_set_html:
                 editorFragment.getEditor().setHtmlContent("<strong>This is a test HTML content</strong>", true);
+                return true;
+            case R.id.action_save_content:
+                editorFragment.getEditor().getContents(new RichEditor.OnContentsReturned() {
+                    @Override
+                    public void process(@NotNull String contents) {
+                        Paper.book("demo").write("content", contents);
+                    }
+                });
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

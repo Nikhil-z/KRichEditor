@@ -2,9 +2,9 @@ package com.ebolo.kricheditor
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.ebolo.krichtexteditor.fragments.KRichEditorFragment
 import com.ebolo.krichtexteditor.fragments.kRichEditorFragment
 import com.ebolo.krichtexteditor.ui.widgets.EditorButton
@@ -102,6 +102,12 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.action_set_html -> {
                 editorFragment.editor.setHtmlContent("<strong>This is a test HTML content</strong>")
+                true
+            }
+            R.id.action_save_content -> {
+                editorFragment.editor.getContents{ contents -> // String
+                    Paper.book("demo").write("content", contents)
+                }
                 true
             }
             else -> super.onOptionsItemSelected(item)
